@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+    
+
+    h1{
+        font-size: 2.5rem;
+    }
+
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #be3232;
+    padding: 1rem;
+    border-radius: 1.5rem; 
+    
+}

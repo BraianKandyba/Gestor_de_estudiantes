@@ -1,0 +1,36 @@
+<div class="container">
+    <h1 class="title" mat-dialog-title> Agregar Curso </h1>
+    <form [formGroup]="cursosForm" (ngSubmit)="onSubmit()" class="form-container">
+
+        <div class="form-item">
+            <mat-form-field class="w-full">
+                <mat-label>Nombre</mat-label>
+                <input formControlName="name" matInput type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="form-item">
+            <mat-form-field>
+                <mat-label>turno</mat-label>
+                <input formControlName="turno" matInput type="text">
+            </mat-form-field>
+        </div>
+        <div class="form-item">
+            <mat-form-field>
+                <mat-label>dias de cursada</mat-label>
+                <input formControlName="diasCursada" matInput type="text">
+            </mat-form-field>
+        </div>
+        <div class="form-item">
+            <mat-form-field>
+                <mat-label>Fecha de inicio</mat-label>
+                <input formControlName="fechaInicio" matInput type="date">
+            </mat-form-field>
+        </div>
+
+        <div class="form-item">
+            <button mat-flat-button color="primary">ENVIAR</button>
+        </div>
+    </form>
+
+</div>
