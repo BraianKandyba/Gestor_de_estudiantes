@@ -1,4 +1,4 @@
 export const environment = {
     isProd: true,
-    apiURL: 'https://your-json-server-url.com',
+    apiURL: 'https://json-test-two-rosy.vercel.app',
 };
