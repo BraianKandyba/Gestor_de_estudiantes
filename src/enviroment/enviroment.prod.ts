@@ -1,4 +1,4 @@
 export const environment = {
     isProd: true,
-    apiURL: 'http://localhost:3000',
+    apiURL: 'https://your-json-server-url.com',
 };
