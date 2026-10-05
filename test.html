@@ -1,0 +1,305 @@
+<form id="mi-form">
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="email" id="email" placeholder="Email">
+    <button type="submit">Mostrar datos</button>
+</form>
+
+<ul id="lista"></ul>
+
+const datos = [
+    ["Nombre", nombre],
+    ["Email", email]
+];
+
+datos.forEach(function (dato) {
+    const li = document.createElement("li");
+    li.textContent = dato[0] + ": " + dato[1];
+    lista.appendChild(li);
+});
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="scritp.js" defer></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <meta name="description" content="consigna B de ejercicios ingreadores">
+    <title>Consigna_B</title>
+</head>
+<body>
+
+
+    
+    <div class="container">
+     <header class="mt-5">
+        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="width: 33%">33%</div>
+        </div>      
+    </header>
+
+    <div class="card border-2 m-2">
+        <div class="card-body">
+
+            <form action="" class="row text-center d-block" id="form">
+                <!-- nombre y apellido -->
+                <div class="col-12">
+                    <label for="validationCustom01" class="form-label">Nombre y apellido</label>
+                    <input type="text" class="form-control" id="nombre" required maxlength="40" minlength="6">
+                    <div class="invalid-feedback" > </div>
+                   
+                </div>
+                <!-- legajo -->
+                 <div class="col-12">
+                    <label for="validationCustom01" class="form-label">legajo</label>
+                    <input type="number" class="form-control" id="legajo" required>
+                    <div class="invalid-feedback" ></div>
+                </div>
+                <!-- email -->
+                 <div class="col-12">
+                    <label for="validationCustom01" class="form-label">email</label>
+                    <input type="email" class="form-control" id="email-input" required>
+                    <div class="invalid-feedback" ></div>
+                </div>
+                <!-- telefono -->
+                 <div class="col-12">
+                    <label for="validationCustom01" class="form-label">telefono</label>
+                    <input type="tel" class="form-control" id="telefono-input" required maxlength="12" minlength="8"  pattern="^\+?[0-9]{8,12}$">
+                 <div class="invalid-feedback" ></div>
+
+                <div class="col-12 m-2">
+                    <input class="btn btn-primary" type="submit" value="Submit">    
+                </div>
+                </div>
+
+
+
+            </form>
+
+            <form action="" class="row text-center d-none" id="form-2">
+
+                <div class="col-12">
+                    <label for="validationCustom01" class="form-label">Nombre del equipo</label>
+                    <input type="text" class="form-control" id="nombre-equipo" required minlength="4" maxlength="25">
+                    <div class="invalid-feedback" > </div>
+                   
+                </div>
+
+                <div class="col-12">
+                    <label for="validationCustom04" class="form-label">deportes</label>
+                    <select class="form-select" id="select-deportes" required>
+                        <option selected disabled value="">seleccione deporte</option>
+                        <option value="1">futbol 5</option>
+                        <option value="2">basquet 3x3</option>
+                        <option value="3">voley</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="col-12">
+                    <label for="validationCustom01" class="form-label">cantidad de integrantes</label>
+                    <input type="number" class="form-control" id="cantidad-integrantes" required>
+                    <div class="invalid-feedback" id="texto" > </div>
+                   
+                </div>
+
+                <div class="col-12 m-2">
+                    <button class="btn btn-secondary" type="button" id="btn-anterior-2">Anterior</button>
+                    <input class="btn btn-primary" type="submit" value="Submit">    
+                </div>
+            </form>
+
+
+            <div class="d-none">
+                <ul class="list-group text-start mb-3" id="resumen">
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+</body>
+</html>
+
+
+
+const form = document.getElementById("form");
+// const feed = document.getElementById("feed");
+let valido = true
+const form2 = document.getElementById("form-2");
+
+form.addEventListener("submit",function(error){
+    error.preventDefault();
+
+    
+    const nombre = document.getElementById("nombre").value;
+    const palabras = nombre.split(" ");
+
+    if( palabras.length < 2 || nombre.length > 40){
+        valido = false;
+        document.getElementById("nombre").classList.add("is-invalid");
+        document.getElementById("nombre").classList.remove("is-valid");
+        document.getElementById("nombre").nextElementSibling.textContent = "error minimo 2 palabras max 40 caracteres"
+    }else if(palabras.some(p => p.length < 3)){
+        valido = false;
+        document.getElementById("nombre").classList.add("is-invalid");
+        document.getElementById("nombre").classList.remove("is-valid");
+        document.getElementById("nombre").nextElementSibling.textContent = "cada palabra debe tener 3 caracteres"
+
+    }else{
+        document.getElementById("nombre").classList.remove("is-invalid");
+        document.getElementById("nombre").classList.add("is-valid");       
+    }
+
+    // legajo
+
+    const legajoimput = document.getElementById("legajo");
+    const legajo = legajoimput.value.trim();
+
+    if(legajo.length !== 6){
+        legajoimput.classList.remove("is-valid");
+        legajoimput.classList.add("is-invalid");
+        legajoimput.nextElementSibling.textContent = "error tiene que ser 6 digitos"
+        valido = false;
+    }else{
+        legajoimput.classList.remove("is-invalid");
+        legajoimput.classList.add("is-valid")
+
+
+    }
+
+    const emailValido = validarEmail();
+    const telefonoValido = validarTelefono();
+    
+    if(emailValido && telefonoValido){
+        console.log("formulario valido")
+        form.classList.remove("d-block");
+        form.classList.add("d-none");
+
+        form2.classList.remove("d-none");
+        form2.classList.add("d-block");
+
+        resumen.classList.remove("d-none");
+        resumen.classList.add("d-block");
+
+        llenarResumen();
+    }
+
+
+})
+
+const emailInput = document.getElementById("email-input");
+
+function validarEmail(){
+const email = emailInput.value.trim();
+
+    if(!email.endsWith("@upe.edu.ar")){
+        emailInput.classList.remove("is-valid");
+        emailInput.classList.add("is-invalid");
+        emailInput.nextElementSibling.textContent="el email debe terminar en @upe.edu.ar"
+        return false;
+    }else{
+        emailInput.classList.remove("is-invalid");
+        emailInput.classList.add("is-valid");
+        return true
+    }
+
+}
+
+const inputTelefono= document.getElementById("telefono-input");
+
+function validarTelefono(){
+    const telefono= inputTelefono.value.trim();
+    if(telefono.length < 8 || telefono.length > 12){
+        inputTelefono.classList.remove("is-valid");
+        inputTelefono.classList.add("is-invalid");
+        inputTelefono.nextElementSibling.textContent="debe tener entre 8 y 12 digitos"
+        return false;
+    }else{
+        inputTelefono.classList.remove("is-invalid");
+        inputTelefono.classList.add("is-valid");
+        return true;
+    }
+
+}
+
+//segundo  formulario
+
+form2.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const nombreEquipoValido = validarNombreEquipo();
+    const integrantesValidos = validarIntegrantes()
+
+    if(nombreEquipoValido && integrantesValidos){
+        console.log("bien")
+        llenarResumen()
+    }
+})
+
+
+const equipoInput = document.getElementById("nombre-equipo");
+
+function validarNombreEquipo(){
+    const equipo = equipoInput.value.trim();
+
+    if(equipo.length < 4 || equipo.length > 25){
+        equipoInput.classList.remove("is-valid");
+        equipoInput.classList.add("is-invalid");
+        equipoInput.nextElementSibling.textContent = "debe tener entre 4 y25 caracteres";
+        return false;
+    }else{
+        equipoInput.classList.remove("is-invalid");
+        equipoInput.classList.add("is-valid");
+        return true
+    }
+}
+
+const selectDeportes = document.getElementById("select-deportes");
+const inputIntegrantes= document.getElementById("cantidad-integrantes");
+
+const texto = document.getElementById("texto");
+
+function validarIntegrantes(){
+    const deportes = parseInt(selectDeportes.value);
+    switch(deportes){
+        case 1:
+            inputIntegrantes.min = 5;
+            inputIntegrantes.max = 8;
+            texto.textContent = "debe tener entre 5 y 8 integrantes";
+            break;
+        case 2:
+            inputIntegrantes.min =3;
+            inputIntegrantes.max = 5;
+            texto.textContent = "debe tener entre 3 y 5 integrantes"
+            break
+        case 3:
+            inputIntegrantes.min =6;
+            inputIntegrantes.max = 10;
+            texto.textContent = "debe tener entre 6 y 10 integrantes"    
+            break
+        default:
+            texto.textContent = "ingrese opcion valida"    
+
+     return false
+    }
+    return true;
+}
+document.getElementById("btn-anterior-2").addEventListener("click",function(){
+        form.classList.remove("d-none");
+        form.classList.add("d-block");
+
+        form2.classList.remove("d-block");
+         form2.classList.add("d-none");
+});
