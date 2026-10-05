@@ -303,3 +303,99 @@ document.getElementById("btn-anterior-2").addEventListener("click",function(){
         form2.classList.remove("d-block");
          form2.classList.add("d-none");
 });
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Rango de Fechas</title>
+</head>
+<body>
+  <form id="miFormulario" novalidate>
+    <div>
+      <label for="fechaInicio">Fecha inicial:</label>
+      <input type="date" id="fechaInicio" name="fechaInicio" required>
+      <span class="error" id="errorInicio" style="color:red; font-size: 0.9em;"></span>
+    </div>
+
+    <div>
+      <label for="fechaFin">Fecha final:</label>
+      <input type="date" id="fechaFin" name="fechaFin" required>
+      <span class="error" id="errorFin" style="color:red; font-size: 0.9em;"></span>
+    </div>
+
+    <br>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="validar.js"></script>
+</body>
+</html>
+
+
+const form = document.getElementById('miFormulario');
+const fechaInicio = document.getElementById('fechaInicio');
+const fechaFin = document.getElementById('fechaFin');
+const errorInicio = document.getElementById('errorInicio');
+const errorFin = document.getElementById('errorFin');
+
+// ---------- Función principal de validación ----------
+function validarRango() {
+  let valido = true;
+
+  // Limpiar mensajes
+  errorInicio.textContent = '';
+  errorFin.textContent = '';
+
+  const inicio = fechaInicio.value;
+  const fin = fechaFin.value;
+
+  // 1. Campos obligatorios
+  if (!inicio) {
+    errorInicio.textContent = 'La fecha inicial es obligatoria.';
+    valido = false;
+  }
+  if (!fin) {
+    errorFin.textContent = 'La fecha final es obligatoria.';
+    valido = false;
+  }
+
+  // 2. Comparar solo si ambas existen
+  if (inicio && fin) {
+    const fechaI = new Date(inicio);
+    const fechaF = new Date(fin);
+
+    if (fechaI > fechaF) {
+      errorFin.textContent = 'La fecha final no puede ser anterior a la inicial.';
+      valido = false;
+    }
+  }
+
+  // 3. Estilo visual
+  fechaInicio.style.borderColor = errorInicio.textContent ? 'red' : 'green';
+  fechaFin.style.borderColor = errorFin.textContent ? 'red' : 'green';
+
+  return valido;
+}
+
+// ---------- Validación en tiempo real ----------
+[fechaInicio, fechaFin].forEach(input => {
+  input.addEventListener('input', validarRango);
+});
+
+// ---------- Validación al enviar ----------
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  if (!validarRango()) {
+    return; // hay errores, no enviamos
+  }
+
+  console.log('✅ Rango válido');
+  console.log('Inicio:', fechaInicio.value);
+  console.log('Fin:', fechaFin.value);
+
+  alert(`Rango válido:\nDe ${fechaInicio.value} a ${fechaFin.value}`);
+  // form.submit(); // descomentar para enviar de verdad
+});
